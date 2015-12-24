@@ -18,7 +18,8 @@ class ProperNameFormatter
   end
 
   def patch(name)
-    config = YAML.load_file(File.join('.', 'config', 'name_patch.yml'))
+    defaults = YAML.load_file(File.join(File.dirname(__FILE__), '..', 'config', 'name_patch.yml'))
+    config   = defaults.merge(user_define_values)
     config.each { |target, replace| name.gsub!(target, replace) }
     name
   end
@@ -26,9 +27,18 @@ class ProperNameFormatter
   def capitalize
     after_last_name = value.slice!(/,.*/)
     a               = value.split(' ')
-
-    s = a.map(&:capitalize).join(' ')
+    s               = a.map(&:capitalize).join(' ')
     s << [after_last_name.upcase].join(' ') unless after_last_name.nil?
     patch(s)
   end
+
+  private
+
+  def user_define_values
+    user_define_file   = File.join('.', 'config', 'name_patch.yml')
+    user_define_values = Hash.new
+    user_define_values = YAML.load_file(user_define_file) if File.exist?(user_define_file)
+    user_define_values
+  end
+
 end
