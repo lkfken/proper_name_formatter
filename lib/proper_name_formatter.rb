@@ -1,0 +1,34 @@
+require 'proper_name_formatter/version'
+require 'yaml'
+
+class ProperNameFormatter
+  attr_accessor :full_name, :first_name, :last_name, :title
+
+  def initialize(params={})
+    self.first_name = params.fetch(:first_name, '')
+    self.last_name  = params.fetch(:last_name, '')
+    self.title      = params.fetch(:title, '')
+    self.full_name  = params.fetch(:full_name, '')
+  end
+
+  def value
+    return full_name unless full_name.empty?
+    self.full_name = [first_name, last_name].join(' ')
+    title.empty? ? full_name : [full_name, ', ', title].join
+  end
+
+  def patch(name)
+    config = YAML.load_file(File.join('.', 'config', 'name_patch.yml'))
+    config.each { |target, replace| name.gsub!(target, replace) }
+    name
+  end
+
+  def capitalize
+    after_last_name = value.slice!(/,.*/)
+    a               = value.split(' ')
+
+    s = a.map(&:capitalize).join(' ')
+    s << [after_last_name.upcase].join(' ') unless after_last_name.nil?
+    patch(s)
+  end
+end
