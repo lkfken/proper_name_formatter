@@ -38,7 +38,7 @@ class ProperNameFormatter
     user_define_file   = File.join('.', 'config', 'name_patch.yml')
     user_define_values = Hash.new
     user_define_values = YAML.load_file(user_define_file) if File.exist?(user_define_file)
-    raise "#{user_define_file} is not a Hash YAML file." unless user_define_file.is_a? Hash
+    raise "#{user_define_file} is not a Hash YAML file." unless user_define_values.is_a? Hash
     user_define_values
   end
 
