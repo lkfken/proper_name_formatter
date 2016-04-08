@@ -67,4 +67,8 @@ describe ProperNameFormatter do
     @name.title = ''
     expect(@name.capitalize).to eq('Daly City Hlth Svcs')
   end
+  it 'should handle just last name' do
+    @name.last_name = 'LEUNG'
+    expect(@name.capitalize).to eq('Leung')
+  end
 end
