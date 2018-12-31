@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kenneth Leung"]
   spec.email         = ["kenneth@leungs.us"]
 
-  spec.summary       = %q{Format proper name}
-  spec.description   = %q{Format proper name}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{This gem attempts to correct problems on formatting (capitalize) proper name}
+  spec.description   = %q{This gem attempts to correct problems on formatting (capitalize) proper name}
+  spec.homepage      = "https://github.com/lkfken/proper_name_formatter"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
 end
